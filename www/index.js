@@ -10,7 +10,7 @@ const systrackVersEl     = document.getElementById('systrack-version')
 const configLinkEl       = document.getElementById('config-link')
 const stderrLinkEl       = document.getElementById('stderr-link')
 const jsonLinkEl         = document.getElementById('json-link')
-const filterNameEl      = document.getElementById("filter-name")
+const filterNameEl       = document.getElementById("filter-name")
 
 let db = null
 let currentSyscallTable = null
