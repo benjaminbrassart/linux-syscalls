@@ -10,6 +10,7 @@ const systrackVersEl     = document.getElementById('systrack-version')
 const configLinkEl       = document.getElementById('config-link')
 const stderrLinkEl       = document.getElementById('stderr-link')
 const jsonLinkEl         = document.getElementById('json-link')
+const filterNameEl      = document.getElementById("filter-name")
 
 let db = null
 let currentSyscallTable = null
@@ -301,6 +302,31 @@ function sortTable(e) {
 	rows.forEach(el => body.appendChild(el))
 	tableEl.querySelectorAll('th').forEach(h => h.classList.remove('ascending', 'descending'))
 	header.classList.add(desc ? 'descending' : 'ascending')
+}
+
+function filterTable(text) {
+	if (updateInProgress)
+		return
+
+	const rows       = Array.from(tableEl.querySelectorAll('tr')).slice(2)
+	let filteredIn   = 0
+
+	for (const el of rows) {
+		const value = el.children[2].textContent
+
+		if (value.includes(text)) {
+			el.classList.remove('filtered-out')
+			filteredIn += 1
+		} else {
+			el.classList.add('filtered-out')
+		}
+	}
+
+	sumamryEl.textContent = `${filteredIn} syscalls`
+}
+
+function handleFilterTableEvent(e) {
+	filterTable(e.target.value)
 }
 
 function toggleCollapseColumn(e) {
@@ -677,6 +703,7 @@ async function setup() {
 	compactSigToggleEl.addEventListener('click', toggleCompactSignature)
 	tableEl.querySelectorAll('th.sortable').forEach(el => el.addEventListener('click', sortTable))
 	tableEl.querySelectorAll('th > .collapse-toggle').forEach(el => el.addEventListener('click', toggleCollapseColumn))
+	filterNameEl.addEventListener('input', handleFilterTableEvent)
 	window.addEventListener('popstate', historyPopStateHandler)
 }
 

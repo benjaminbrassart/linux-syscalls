@@ -233,3 +233,7 @@ table td.esoteric::after    { content: '\2002\1f984\fe0f'; }
 		text-shadow: 0px 0px 3px var(--main-fg);
 	}
 }
+
+.filtered-out {
+	display: none;
+}
