@@ -149,6 +149,7 @@ function afterUpdate() {
 	archSelectEl.disabled = false
 	tagSelectEl.disabled = false
 	updateInProgress = false
+	filterTable(filterNameEl.value)
 }
 
 function clearOptions(selectEl) {
@@ -542,6 +543,7 @@ function toggleCompactSignature() {
 	localStorage.setItem('compactSignature', compactSignature)
 	// Could be optimized... but I could also not care less for now
 	fillTable(currentSyscallTable, realTag(arch, bits, abi, tag))
+	filterTable(filterNameEl.value)
 }
 
 async function update(pushHistoryState) {
